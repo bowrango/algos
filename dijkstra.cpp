@@ -5,7 +5,7 @@
 // g++ dijkstra.cpp -o dijkstra -std=c++17
 
 std::vector<int> Dijkstra(int n, std::vector<std::vector<int>>& edges, std::vector<double> w, int src, int trgt) {
-    // Returns shortest-path using Dijkstra algorithm. Uses minheap for runtime complexity O((E+V)logV)
+    // Returns shortest-path using Dijkstra algorithm. Uses binary heap for runtime complexity O(ElogV)
 
     // build graph 
     std::vector<std::vector<std::pair<double, int>>> g(n);
@@ -23,7 +23,7 @@ std::vector<int> Dijkstra(int n, std::vector<std::vector<int>>& edges, std::vect
     // track previous node on shortest path
     std::vector<int> parent(n, -1);
 
-    // minheap keeps lowest weight at the top
+    // keep lowest weight at the top
     using s = std::pair<double, int>;
     std::priority_queue<s, std::vector<s>, std::greater<s>> q;
     q.push({0.0, src});
