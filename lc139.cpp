@@ -1,7 +1,9 @@
 class Solution {
 public:
     bool wordBreak(string s, vector<string>& wordDict) {
-            // Time O(n^3 + mk)
+            // m := length of wordDict
+            // k := average word length
+            // Time O(n*k^2 + mk)
             // Space O(n + mk)
             int n = s.size();
             int L = getMaxLength(wordDict);
