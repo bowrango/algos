@@ -13,7 +13,7 @@ public:
         // (node, currentCost)
         queue<pair<int,int>> q;
         q.push({src, 0});
-        // Run DFS for number of edges = 0 ... k+1 since k stops implies k+1 edges
+        // Run BFS for number of edges = 0 ... k+1 since k stops implies k+1 edges
         int u, v, cost;
         while(!q.empty() && stops<=k) {
             // number of edges to evaluate
