@@ -1,3 +1,6 @@
+// LC622: Design Circular Queue
+// Fixed-size ring buffer with front/rear pointers.
+
 class RingBuffer {
 public:
     size_t cap;

@@ -1,3 +1,6 @@
+// LC692: Top K Frequent Words
+// Return k most frequent words using bucket sort.
+
 class Solution {
 public:
     // struct Compare {

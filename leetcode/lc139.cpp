@@ -1,3 +1,6 @@
+// LC139: Word Break
+// Determine if string s can be segmented into dictionary words using DP.
+
 class Solution {
 public:
     bool wordBreak(string s, vector<string>& wordDict) {

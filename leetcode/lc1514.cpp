@@ -1,3 +1,6 @@
+// LC1514: Path with Maximum Probability
+// Dijkstra with -log transform to find highest probability path.
+
 class Solution {
 public:
     double maxProbability(int n, vector<vector<int>>& edges, vector<double>& probs, int start, int end) {

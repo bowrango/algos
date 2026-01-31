@@ -1,3 +1,6 @@
+// LC739: Daily Temperatures
+// Days until warmer temperature using a monotonic stack.
+
 class Solution {
 public:
     vector<int> dailyTemperatures(vector<int>& temps) {

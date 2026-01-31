@@ -1,3 +1,6 @@
+// LC76: Minimum Window Substring
+// Find the smallest substring of s containing all characters in t using sliding window.
+
 class Solution {
 public:
     string minWindow(string s, string t) {

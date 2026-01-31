@@ -1,6 +1,7 @@
+// LC146: LRU Cache
+// Least-Recently-Used cache with O(1) get/put using doubly linked list + hash map.
 
 class LRUCache {
-    // Least-Recently-Used Cache (std::list)
 private:
     int capacity;
     list<pair<int,int>> items; // MRU (front), LRU (back)
@@ -28,13 +29,13 @@ public:
             it->second->second = value;
             items.splice(items.begin(), items, it->second);
         } else {
+            // add new node
             if(cache.size() == capacity) {
-                // evict
+                // evict least-recently-used
                 int lrukey = items.back().first;
                 items.pop_back();
                 cache.erase(lrukey);
             }
-            // add new node
             items.emplace_front(key, value);
             cache[key] = items.begin();
         }

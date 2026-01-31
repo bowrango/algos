@@ -1,3 +1,6 @@
+// LC1024: Video Stitching
+// Minimum clips to cover [0, time] using greedy interval selection.
+
 class Solution {
 public:
     int videoStitching(vector<vector<int>>& clips, int time) {

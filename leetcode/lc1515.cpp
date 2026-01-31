@@ -1,3 +1,6 @@
+// LC1515: Best Position for a Service Centre
+// Find point minimizing sum of Euclidean distances (geometric median).
+
 class Solution {
 public:
     double getMinDistSum(vector<vector<int>>&positions) {

@@ -1,3 +1,6 @@
+// LC295: Find Median from Data Stream
+// Maintain running median using two heaps (max-heap for lower half, min-heap for upper).
+
 class MedianFinder {
 private:
     // Use maxheap to store smaller half. Top is the largest of the smallest

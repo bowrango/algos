@@ -1,3 +1,6 @@
+// LC91: Decode Ways
+// Count ways to decode a digit string where A=1, B=2, ..., Z=26.
+
 class Solution {
 public:
     int numDecodings(string s) {

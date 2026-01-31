@@ -1,3 +1,6 @@
+// LC200: Number of Islands
+// Count connected components of '1's in a grid using BFS.
+
 class Solution {
 public:
     int numIslands(vector<vector<char>>& grid) {

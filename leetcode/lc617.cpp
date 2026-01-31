@@ -1,3 +1,6 @@
+// LC617: Merge Two Binary Trees
+// Recursively merge two trees by summing overlapping node values.
+
 /**
  * Definition for a binary tree node.
  * struct TreeNode {

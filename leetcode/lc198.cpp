@@ -1,3 +1,6 @@
+// LC198: House Robber
+// Max sum of non-adjacent elements using linear DP.
+
 class Solution {
 public:
     int rob(vector<int>& nums) {

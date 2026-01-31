@@ -1,3 +1,6 @@
+// LC207: Course Schedule
+// Detect if courses can be completed (cycle detection via topological sort).
+
 class Solution {
 public:
     bool canFinish(int n, vector<vector<int>>& prereq) {

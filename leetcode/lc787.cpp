@@ -1,3 +1,6 @@
+// LC787: Cheapest Flights Within K Stops
+// Find cheapest path with at most k stops using BFS.
+
 class Solution {
 public:
     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {

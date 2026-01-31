@@ -1,7 +1,10 @@
-// You are eating a candy bar that is made of pieces in a single row (e.g., a Toblerone). You can bite off 1, 2, or 3 pieces at a time. How many different ways can you eat a bar that is n pieces long? 
+// You are eating a candy bar that is made of pieces in a single row. 
+// You can bite off 1, 2, or 3 pieces at a time. 
+// How many different ways can you eat a bar that is n pieces long? 
 
 #include <iostream>
 #include <array>
+#include <chrono>
 
 using M = std::array<std::array<int, 3>, 3>;
 
@@ -40,7 +43,7 @@ M expm(M base, int exp) {
     return result;
 }
 
-int f_best(int n) {
+int f_expm(int n) {
 
     // Recurrence:
     // f(n) = f(n-1) + f(n-2) + f(n-3)
@@ -72,7 +75,7 @@ int f_best(int n) {
     return fn;
 }
 
-int f_mine(int n) {
+int f_dp(int n) {
     // f(n) = f(n-1) + f(n-2) + f(n-3)
 
     // base cases
@@ -99,8 +102,20 @@ int f_mine(int n) {
 
 int main() {
 
-    std::cout << f_mine(4) << std::endl;
-    std::cout << candybar(4) << std::endl;
+    int n = INT_MAX; // expm is faster for large n
+
+    auto t0_expm = std::chrono::high_resolution_clock::now();
+    int f_expm_n = f_expm(n);
+    auto t1_expm = std::chrono::high_resolution_clock::now();
+    auto dt_expm = std::chrono::duration_cast<std::chrono::nanoseconds>(t1_expm - t0_expm);
+    std::cout << "f_expm(" << n << ") = " << f_expm_n << " in " << dt_expm.count() << " ns" << std::endl;
+
+    auto t0_dp = std::chrono::high_resolution_clock::now();
+    int f_dp_n = f_dp(n);
+    auto t1_dp = std::chrono::high_resolution_clock::now();
+    auto dt_dp = std::chrono::duration_cast<std::chrono::nanoseconds>(t1_dp - t0_dp);
+    std::cout << "f_dp(" << n << ") = " << f_dp_n << " in " << dt_dp.count() << " ns" << std::endl;
+
     return 0;
 }
 

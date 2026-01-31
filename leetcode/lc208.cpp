@@ -1,8 +1,9 @@
+// LC208: Implement Trie (Prefix Tree)
+// Trie data structure for efficient string prefix operations.
 
 constexpr array<int, 26> EMPTY = {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
 
 class Trie {
-// Trie or A-Z Tree
 private:
 // trie[depth][width]
 vector<array<int, 26>> trie;

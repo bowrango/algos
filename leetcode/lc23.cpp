@@ -1,3 +1,5 @@
+// LC23: Merge k Sorted Lists
+// Merge k sorted linked lists using a min-heap.
 
 #include <vector>
 #include <queue>

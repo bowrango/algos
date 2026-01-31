@@ -1,3 +1,6 @@
+// LC213: House Robber II
+// Max sum of non-adjacent elements in a circular array.
+
 class Solution {
 public:
     int linearrob(const vector<int>& nums) {
