@@ -1,6 +1,5 @@
 
-// Basic graph encoder/decoder for
-// vector<Node*> <-> vector<int>
+// Serialize graph represented as vector<Node*> to vector<int>
 // using the format
 // [N,
 //  for each node:
