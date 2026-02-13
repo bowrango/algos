@@ -3,6 +3,7 @@
 C++/Python implementations of fundamental algorithms and data structures.
 
 The `leetcode/` directory has solutions to LeetCode challenges and `misc/` contains various other exercises:
+- `chimera.cpp` - matmul graph compiler with greedy memory and timing (loosely based on [Chimera Graph Compiler](https://app.quadric.ai/docs/latest/chimera-software-user-guide/chimera-graph-compiler-cgc/overview-of-the-cgc))
 - `candybar.cpp` - memoization with fun improvement using matrix exponentiation
 - `knapsack.cpp` - binary knapsack with memoization
 - `graph_serialize.cpp` - translate between graph of `vector<Node*>` and serial `vector<int>`
