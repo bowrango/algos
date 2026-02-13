@@ -7,7 +7,7 @@
 // Assumptions:
 //   - Accepts any generic matrix-multiply sequence of valid sizes
 //   - 2D grid of processing elements (PEs): 8x8 (64), 16x16 (256), or 32x32 (1024).
-//   - Each PE has 4KB of fast memory (e.g., SRAM) with unlimited slow memory (e.g., L2) accessible only at grid edge.
+//   - Each PE has 4KB of fast memory (e.g., SRAM). There is unlimited slow memory (e.g., L2) accessible only at grid edge.
 //   - Evicted tensors and new tensors that don't fit on PEs overflow to the slow memory.
 //   - Greedy placement puts ops on PEs that minimize the input transfer cost.
 //   - Greedy scheduling orders ops by how cheaply they run in the current PE.
@@ -56,18 +56,18 @@ struct MatMulSpec {
 };
 
 struct Compiler {
-    // Place and Schedule ops onto a 2D grid of processing elements (PEs):
+    // Place and Schedule ops onto a 2D grid of processing elements (PEs).
+    // It considers two tiers of memory:
     //   fast = limited local registers (4KB each)
     //   slow  = unlimited global memory at the boundary
-    // Data movement costs bytes * hops.
-    // PE-to-PE: bytes * manhattan distance. DRAM: bytes * (distance to nearest boundary + 1).
-    // Every load and store increases `moved`, which tracks total movement to be minimized.
+    // Greedy heuristics are used to minimize the data movement. 
+    // The returned sequence is functionally equilivent to the input.
     int rows, cols, num_pes;
     size_t pe_cap;               // per-PE register capacity (bytes)
     vector<size_t> pe_used;      // per-PE register usage (bytes)
     size_t moved = 0;            // total weighted transfer (bytes * hops)
-    size_t slow_moved = 0;       // subset of moved from DRAM loads/stores
-    size_t fast_moved = 0;         // subset of moved from PE-to-PE transfers
+    size_t slow_moved = 0;       // subset of moved from slow loads/stores
+    size_t fast_moved = 0;         // subset of moved from fast transfers
     // Op states
     vector<Op> ops;
     vector<int> remaining_prod;  // number of waiting producers per op
@@ -95,7 +95,7 @@ struct Compiler {
         remaining_con.assign(tensors.size(), 0);
         for (auto& t : tensors) {
             remaining_con[t.id] = (int)t.consumers.size();
-            if (t.producer < 0) alive[t.id] = true;  // constants start alive in DRAM
+            if (t.producer < 0) alive[t.id] = true;  // init tensors in slow mem
         }
         for (auto& op : ops) {
             for (int tid : op.inputs)
@@ -281,19 +281,19 @@ struct Compiler {
             return a > b;
         };
 
-        priority_queue<int, vector<int>, decltype(cmp)> ready(cmp);
         vector<int> order;
-
+        priority_queue<int, vector<int>, decltype(cmp)> ready(cmp);
         for (auto& op : ops)
             if (remaining_prod[op.id] == 0) ready.push(op.id);
 
         while (!ready.empty()) {
-            // rebuild because scores are updated each execution
             if (greedy) {
+                // update scores
                 vector<int> tmp;
                 while (!ready.empty()) { tmp.push_back(ready.top()); ready.pop(); }
                 for (int id : tmp) ready.push(id);
             }
+
             int pick = ready.top();
             ready.pop();
 
