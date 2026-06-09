@@ -1,0 +1,20 @@
+# Ignore everything by default.
+*
+
+# Keep directories visible so nested source files can be unignored.
+!*/
+
+# Keep repo metadata and docs.
+!.gitignore
+!README.md
+
+# Keep source files.
+!*.c
+!*.cc
+!*.cpp
+!*.cxx
+!*.h
+!*.hh
+!*.hpp
+!*.hxx
+!*.py
