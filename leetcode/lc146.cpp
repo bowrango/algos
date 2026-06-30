@@ -43,108 +43,98 @@ public:
 };
 
 // class LRUCache {
-//     // Least-Recently-Used Cache (custom pointer logic)
 // private:
-//     // double-linked list
-//     struct Node {
-//         int key;
-//         int value;
-//         Node* prev;
-//         Node* next;
-//         Node(int k, int v) : key(k), value(v), prev(nullptr), next(nullptr) {}
-//     };
-//     int capacity;
-//     unordered_map<int, Node*> mp;
-//     Node* head; // MRU
-//     Node* tail; // LRU
+// struct Node {
+//     int key;
+//     int value;
+//     Node* right;
+//     Node* left;
+//     Node(int k, int v) : key(k), value(v), right(nullptr), left(nullptr) {}
+// };
+// int capacity;
+// // lookup[key] = pointer to node
+// std::unordered_map<int, Node*> lookup;
+// Node* head;
+// Node* tail;
 
-//     void addToFront(Node* n) {
-//         if(head==nullptr && tail==nullptr) {
-//             // first node
-//             head = n;
-//             tail = n;
-//             n->prev = nullptr;
-//             n->next = nullptr;
-//         } else {
-//             // update head
-//             n->next = head;
-//             n->prev = nullptr;
-//             head->prev = n;
-//             head = n;
-//         }
+// void addToFront(Node* n) {
+//     // Add node to map
+//     lookup[n->key] = n; 
+//     if(head==nullptr && tail==nullptr) {
+//         // first node
+//         head = n;
+//         tail = n;
+//         n->right = nullptr;
+//         n->left = nullptr;
+//     } else {
+//         // update head
+//         Node* oldHead = head;
+//         oldHead->right = n;
+//         n->left = oldHead;
+//         n->right = nullptr;
+//         head = n;
 //     }
-
-//     void removeNode(Node* n) {
-//         if(!n) {return;}
-//         if(n==head && n==tail) {
-//             // only node
-//             head = nullptr;
-//             tail = nullptr;
-//         }
-//         else if(n==head) {
-//             head = n->next;
-//             if(head) {head->prev = nullptr;}
-//         }
-//         else if(n==tail) {
-//             tail = n->prev;
-//             if(tail) {tail->next = nullptr;}
-//         }
-//         else {
-//             // middle node
-//             Node* left = n->prev;
-//             Node* right = n->next;
-//             if(left) {left->next = right;}
-//             if(right) {right->prev = left;}
-//         }
-//         // disconnect
-//         n->prev = nullptr;
-//         n->next = nullptr;
+// }
+// void removeNode(Node* n) {
+//     if(!n) {return;}
+//     if(n->left) {
+//         // update left
+//         n->left->right = n->right;
+//     } else {
+//         // update tail
+//         tail = n->right;
+//     }if(n->right) {
+//         // update right
+//         n->right->left = n->left;
+//     } else {
+//         // update head
+//         head = n->left;
 //     }
-
-//     void moveToFront(Node* n) {
-//         if(n != head) {
-//             removeNode(n);
-//             addToFront(n);
-//         }
+//     n->right = nullptr;
+//     n->left = nullptr;
+// }
+// void moveToFront(Node* n) {
+//     if(n != head) {
+//         removeNode(n);
+//         addToFront(n);
 //     }
-
-//     void evict() {
-//         if(!tail) {return;}
+// }
+// void evict() {
+//     if(!tail) {return;}
+//     if(lookup.size() >= capacity) {
 //         Node* n = tail;
 //         removeNode(n);
-//         mp.erase(n->key);
+//         lookup.erase(n->key);
 //         delete n;
 //     }
+// }
 
 // public:
-//     LRUCache(int capacity) {
+//     LRUCache(int capacity) { 
 //         this->capacity = capacity;
-//         head = nullptr;
-//         tail = nullptr;
+//         this->head = nullptr;
+//         this->tail = nullptr;
 //     }
     
 //     int get(int key) {
-//         if(mp.count(key) == 0) {return -1;}
-//         Node* node = mp[key];
-//         moveToFront(node);
-//         return node->value;
+//         if(lookup.count(key)) {
+//             Node* n = lookup[key];
+//             moveToFront(n);
+//             return n->value;
+//         } else {
+//             return -1;
+//         }
 //     }
     
 //     void put(int key, int value) {
-//         if(capacity==0) {return;}
-//         if(mp.count(key) > 0) {
-//             // update Node value
-//             Node* node = mp[key];
-//             node->value = value;
-//             moveToFront(node);
+//         if(lookup.count(key)) {
+//             Node* n = lookup[key];
+//             n->value = value;
+//             moveToFront(n);
 //         } else {
-//             // add new Node
-//             if(mp.size() >= capacity) {
-//                 evict();
-//             }
+//             evict();
 //             Node* n = new Node(key, value);
 //             addToFront(n);
-//             mp[key] = n;
 //         }
 //     }
 // };
